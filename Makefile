@@ -1,6 +1,6 @@
-COMPILER=g++
+COMPILER=gcc
 RM=rm
-SRC_EXTENSION=cc
+SRC_EXTENSION=c
 OBJ_EXTENSION=o
 RUNNER=
 
@@ -19,13 +19,14 @@ EXECNAME=main
 ARGS=
 
 run: build
-	@echo "RUNNING $(RUNNER) ./$(BINDIR)/$(EXECNAME) $(ARGS)\n================\n"
+	@echo RUNNING $(RUNNER) ./$(BINDIR)/$(EXECNAME) $(ARGS)
+	@echo ================
 	@$(RUNNER) ./$(BINDIR)/$(EXECNAME) $(ARGS)
 .PHONY: run
 
 build: $(OBJS)
 	@$(COMPILER) $^ -o $(BINDIR)/$(EXECNAME) $(LDFLAGS)
-	@echo "COMPILER $<"
+	@echo COMPILE $<
 .PHONY: build
 
 clean:
@@ -35,16 +36,16 @@ clean:
 
 $(OBJDIR)/%.$(OBJ_EXTENSION): $(SRCDIR)/%.$(SRC_EXTENSION)
 	@$(COMPILER) $(CFLAGS) -c $< -o $@
-	@echo "COMPILER $<"
+	@echo COMPILE $<
 
 init:
-	@echo "Initializing Folders"
+	@echo Initializing Folders
 	@mkdir $(INCDIR)
 	@mkdir $(SRCDIR)
 	@mkdir $(OBJDIR)
 	@mkdir $(BUILDDIR)
 	@mkdir $(BINDIR)
-	@echo "Initialization Completed"
+	@echo Initialization Completed
 .PHONY: init
 
 remove: check_remove
@@ -57,7 +58,7 @@ remove: check_remove
 
 
 check_remove:
-	@echo "Removing folders"
+	@echo Removing folders
 	@echo -n "Are you sure? [y/N] " && read ans && [ $${ans:-N} = y ]
 
 .PHONY: remove check_remove
